@@ -13,13 +13,23 @@ Fine-tuning [Qwen3-0.6B](https://huggingface.co/Qwen/Qwen3-0.6B) to classify web
 3. **Model & LoRA setup** — Load Qwen3-0.6B in 4-bit via [Unsloth](https://github.com/unslothai/unsloth), attach rank-16 LoRA to all attention + MLP projections
 4. **Prompt design** — Chat-templated classification prompt with XML-tagged output (`<prediction>phish</prediction>`)
 5. **Baseline eval** — Zero-shot performance on the validation set before any fine-tuning
-6. **SFT training** — 100 steps with sequence packing, 8-bit AdamW, constant LR (5e-4) with warmup, gradient accumulation 4
+6. **SFT training** — 105 steps with sequence packing, 8-bit AdamW, constant LR (5e-4) with warmup, gradient accumulation 4
 7. **Evaluation** — Accuracy, precision, recall, F1, and confusion matrix on validation and held-out test sets
 
 ## Setup
 
+Requires a CUDA GPU (T4 or better). Run `mlprague_dream_workshop.ipynb` end-to-end.
+
+### Google Colab
+
+Most dependencies are pre-installed. Only two extra packages are needed:
+
 ```bash
-pip install unsloth lxml 
+pip install unsloth lxml
 ```
 
-Requires a CUDA GPU (T4 or better). Run `main_t4_full.ipynb` end-to-end.
+### Local / Other environments
+
+```bash
+pip install unsloth lxml numpy pandas torch matplotlib tqdm datasets transformers trl scikit-learn
+```
